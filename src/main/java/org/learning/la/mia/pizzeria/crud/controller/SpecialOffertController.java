@@ -31,7 +31,10 @@ public class SpecialOffertController {
         Optional<Pizza> result = pizzeriaRepository.findById(pizzaId);
         if (result.isPresent()) {
             Pizza pizzaOff = result.get();
-            model.addAttribute("pizza", pizzaOff);
+            model.addAttribute("pizzaOff", pizzaOff);
+            SpecialOffert newOffer = new SpecialOffert();
+            newOffer.setPizza(pizzaOff);
+            model.addAttribute("offerta", newOffer);
             return "offerte/create";
         }  else {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -41,8 +44,8 @@ public class SpecialOffertController {
     }
 
     @PostMapping("/create")
-    public String store(SpecialOffert formOffert) {
-        SpecialOffert pizzaOffert = specialOffertRepository.save(formOffert);
-        return "redirect:/pizzas/show/" + pizzaOffert.getPizza().getId();
+    public String store(SpecialOffert formOffer) {
+        SpecialOffert pizzaOffer = specialOffertRepository.save(formOffer);
+        return "redirect:/pizzas/show/" + pizzaOffer.getPizza().getId();
     }
 }
