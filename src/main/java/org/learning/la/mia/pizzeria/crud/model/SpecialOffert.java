@@ -5,10 +5,13 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "offerte")
 public class SpecialOffert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private String title;
     @Column(nullable = false)
     private LocalDate startDate;
     private LocalDate endDate;
@@ -45,5 +48,13 @@ public class SpecialOffert {
 
     public void setPizza(Pizza pizza) {
         this.pizza = pizza;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
