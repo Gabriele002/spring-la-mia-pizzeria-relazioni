@@ -23,7 +23,7 @@
         <input type="hidden" th:field="*{pizza}">
 
         <div class="col-md-6">
-            <label for="title" class="form-label">Titleeeee</label>
+            <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
                 <ul>

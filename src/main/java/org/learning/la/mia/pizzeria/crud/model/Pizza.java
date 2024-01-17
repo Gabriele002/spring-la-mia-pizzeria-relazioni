@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,17 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffert> specialOfferts;
 
+
+
+    public boolean hasOffer(){
+       boolean flag = false;
+        for (SpecialOffert offer : specialOfferts){
+            if (offer.getStartDate().isBefore(LocalDate.now()) && offer.getEndDate().isAfter(LocalDate.now())) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
 
     public String getName() {
         return name;

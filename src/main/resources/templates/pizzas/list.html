@@ -36,7 +36,7 @@
 
                 <tbody>
                 <tr th:each="pizza: ${pizzaList}"
-                    th:classappend="${pizza.specialOfferts.size() != 0 ? 'table-success' : ''}">
+                    th:classappend="${pizza.hasOffer() ? 'table-success' : 'table-danger'}">
                     <td th:text="${pizza.name}"></td>
                     <td th:text="| ${pizza.price} $|"></td>
                     <td th:if="${pizza.specialOfferts.size() != 0}" th:class="'text-danger'">Offerte disponibili</td>
