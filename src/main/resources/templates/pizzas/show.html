@@ -40,6 +40,17 @@
             <td th:text="${so.title}"></td>
             <td th:text="${so.startDate}"></td>
             <td th:text="${so.endDate}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{/offerte/edit/{id}(id=${so.id})}">Edit</a>
+            </td>
+            <td>
+                <form
+                        th:action="@{/offerte/delete/{id}(id=${so.id})}"
+                        method="post"
+                        onsubmit="return confirm('Are you sure?')">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

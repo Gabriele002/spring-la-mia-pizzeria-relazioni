@@ -1,5 +1,6 @@
 package org.learning.la.mia.pizzeria.crud.controller;
 
+import jakarta.validation.Valid;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzeriaRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.SpecialOffertRepository;
 import org.learning.la.mia.pizzeria.crud.model.Pizza;
@@ -8,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -46,6 +45,45 @@ public class SpecialOffertController {
     @PostMapping("/create")
     public String store(SpecialOffert formOffer) {
         SpecialOffert pizzaOffer = specialOffertRepository.save(formOffer);
-        return "redirect:/pizzas/show/" + pizzaOffer.getPizza().getId();
+        return "redirect:/pizzas/show/" +pizzaOffer.getPizza().getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        Optional<SpecialOffert> result = specialOffertRepository.findById(id);
+        if (result.isPresent()){
+            model.addAttribute("discount", result.get());
+            return "offerte/edit";
+        } else  {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta with id " + id
+                    + " not found");
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id,
+                         @Valid @ModelAttribute("offer") SpecialOffert formOffer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "offerte/edit";
+        }
+        SpecialOffert updatedoffer = specialOffertRepository.save(formOffer);
+        return "redirect:/pizzas/show/" + updatedoffer.getPizza().getId();
+    }
+
+
+
+
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        Optional<SpecialOffert> result = specialOffertRepository.findById(id);
+        if (result.isPresent()){
+            SpecialOffert offerToDelete = result.get();
+            specialOffertRepository.delete(offerToDelete);
+            return "redirect:/pizzas/show/" + offerToDelete.getPizza().getId();
+
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Offer whit id" + id + "not found");
+        }
     }
 }
