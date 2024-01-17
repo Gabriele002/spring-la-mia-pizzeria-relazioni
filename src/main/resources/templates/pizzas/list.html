@@ -35,9 +35,12 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="pizza: ${pizzaList}">
+                <tr th:each="pizza: ${pizzaList}"
+                    th:classappend="${pizza.specialOfferts.size() != 0 ? 'table-success' : ''}">
                     <td th:text="${pizza.name}"></td>
                     <td th:text="| ${pizza.price} $|"></td>
+                    <td th:if="${pizza.specialOfferts.size() != 0}" th:class="'text-danger'">Offerte disponibili</td>
+                    <td th:unless="${pizza.specialOfferts.size() != 0}" th:class="'text-danger'">Offerte  non disponibili</td>
                     <td class="d-flex justify-content-between">
                         <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}" role="button"> Details </a>
                         <a class="btn btn-primary" th:href="@{/pizzas/editPizza/{id}(id=${pizza.id})}" role="button"> Edit pizza </a>
