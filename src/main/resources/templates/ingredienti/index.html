@@ -19,11 +19,19 @@
     </div>
     <ul class="list-group" th:if="${ingredientList.size() > 0}">
         <li class="list-group-item d-flex" th:each="ing : ${ingredientList}">
-            <div class="col-10" th:text="|${ing.name}|"></div>
+            <div class="col-8" th:text="|${ing.name}|"></div>
             <div class="col-2">
                 <a th:href="@{/ingredient/edit/{id}(id=${ing.id})}" class="btn btn-primary">
                    Modifica
                 </a>
+            </div>
+            <div class="col-2">
+                <form
+                        th:action="@{/ingredient/delete/{id}(id=${ing.id})}"
+                        method="post"
+                        onsubmit="return confirm('Are you sure?')">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
             </div>
         </li>
     </ul>
