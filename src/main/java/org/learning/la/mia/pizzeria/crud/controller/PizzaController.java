@@ -1,6 +1,7 @@
 package org.learning.la.mia.pizzeria.crud.controller;
 
 import jakarta.validation.Valid;
+import org.learning.la.mia.pizzeria.crud.interfaccie.IngredientsRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzaTypeRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzeriaRepository;
 import org.learning.la.mia.pizzeria.crud.model.Pizza;
@@ -25,6 +26,9 @@ public class PizzaController {
 
     @Autowired
     private PizzaTypeRepository pizzaTypeRepository;
+
+    @Autowired
+    private IngredientsRepository ingredientsRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -51,6 +55,7 @@ public class PizzaController {
         Pizza pizza = new Pizza();
         model.addAttribute("pizza", pizza);
         model.addAttribute("pizzaTypeList", pizzaTypeRepository.findAll());
+        model.addAttribute("ingredientList", ingredientsRepository.findAll());
         return "pizzas/newPizza";
     }
 
@@ -58,6 +63,7 @@ public class PizzaController {
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pizzaTypeList", pizzaTypeRepository.findAll());
+            model.addAttribute("ingredientList", ingredientsRepository.findAll());
             return "pizzas/newPizza";
         } else {
             Pizza savePizza = pizzeriaRepository.save(formPizza);

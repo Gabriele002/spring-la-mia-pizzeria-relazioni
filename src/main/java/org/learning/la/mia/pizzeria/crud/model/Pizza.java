@@ -34,6 +34,16 @@ public class Pizza {
     @ManyToOne
     private PizzaType type;
 
+    @ManyToMany
+    private List<Ingredient> ingredients;
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public boolean hasOffer(){
        boolean flag = false;

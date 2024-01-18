@@ -7,3 +7,8 @@ INSERT INTO offerte (pizza_id, title, start_date, end_date) VALUES(1, 'Offerta d
 INSERT INTO pizza_type (name) VALUES('Baby');
 INSERT INTO pizza_type (name) VALUES('A ruota di carro');
 INSERT INTO pizza_type (name) VALUES('Normale');
+
+INSERT INTO ingredients (name, price) VALUES('Mozzarella', '1');
+INSERT INTO ingredients (name, price) VALUES('Salame', '1.50');
+INSERT INTO ingredients (name, price) VALUES('Patatine', '2');
+INSERT INTO ingredients (name, price) VALUES('Provola', '2');
