@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.learning.la.mia.pizzeria.crud.interfaccie.IngredientsRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzaTypeRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzeriaRepository;
+import org.learning.la.mia.pizzeria.crud.model.Ingredient;
 import org.learning.la.mia.pizzeria.crud.model.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
