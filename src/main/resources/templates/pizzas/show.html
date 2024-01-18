@@ -13,6 +13,7 @@
     <title th:text="${title}"></title>
 </head>
 <body>
+<nav th:replace="fragments/navbar :: topNavbar('pizzas')"></nav>
 <h1 class="text-danger"> Pizza details</h1>
 <p th:text="${pizza.name}"></p>
 <p th:text="${pizza.description}"></p>

@@ -12,6 +12,7 @@
     <title>Offerte</title>
 </head>
 <body>
+<nav th:replace="fragments/navbar :: topNavbar('pizzasOff')"></nav>
 <main class="container">
     <h1>Create offer for <span th:text="${pizzaOff.name}"></span></h1>
     <hr>

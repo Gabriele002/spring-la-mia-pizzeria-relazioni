@@ -21,7 +21,6 @@ public class Pizza {
     @Column(nullable = false)
     private String name;
     private String description;
-
     @Lob
     private String photo;
     @Column(nullable = false)
@@ -29,9 +28,11 @@ public class Pizza {
     @NotNull(message = "The price must be greater than 1")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "pizza")
+    @OneToMany(mappedBy = "pizza", orphanRemoval = true)
     private List<SpecialOffert> specialOfferts;
 
+    @ManyToOne
+    private PizzaType type;
 
 
     public boolean hasOffer(){
@@ -86,6 +87,14 @@ public class Pizza {
 
     public List<SpecialOffert> getSpecialOfferts() {
         return specialOfferts;
+    }
+
+    public PizzaType getType() {
+        return type;
+    }
+
+    public void setType(PizzaType type) {
+        this.type = type;
     }
 
     public void setSpecialOfferts(List<SpecialOffert> specialOfferts) {

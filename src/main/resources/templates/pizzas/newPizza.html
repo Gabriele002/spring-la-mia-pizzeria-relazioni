@@ -12,6 +12,7 @@
     <title>Add Pizza</title>
 </head>
 <body>
+<nav th:replace="fragments/navbar :: topNavbar('pizzas')"></nav>
 <div class="container">
     <h1>Add new pizza</h1>
     <hr>
@@ -50,6 +51,16 @@
                 </ul>
             </div>
         </div>
+
+        <div class="col-4">
+            <label class="form-label" for="type">Pizza Type</label>
+            <select id="type" class="form-select" th:field="*{type}">
+                <option value="" selected>Choose a type</option>
+                <option th:each="pt : ${pizzaTypeList}" th:value="${pt.id}"
+                        th:text="${pt.name}"></option>
+            </select>
+        </div>
+
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save</button>
             <a class="btn btn-primary" th:href="@{/pizzas}">Cancel</a>

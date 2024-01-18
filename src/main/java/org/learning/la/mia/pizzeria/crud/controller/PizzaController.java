@@ -1,6 +1,7 @@
 package org.learning.la.mia.pizzeria.crud.controller;
 
 import jakarta.validation.Valid;
+import org.learning.la.mia.pizzeria.crud.interfaccie.PizzaTypeRepository;
 import org.learning.la.mia.pizzeria.crud.interfaccie.PizzeriaRepository;
 import org.learning.la.mia.pizzeria.crud.model.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class PizzaController {
 
     @Autowired
     private PizzeriaRepository pizzeriaRepository;
+
+    @Autowired
+    private PizzaTypeRepository pizzaTypeRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -46,12 +50,14 @@ public class PizzaController {
     public String create(Model model) {
         Pizza pizza = new Pizza();
         model.addAttribute("pizza", pizza);
+        model.addAttribute("pizzaTypeList", pizzaTypeRepository.findAll());
         return "pizzas/newPizza";
     }
 
     @PostMapping("/newPizza")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("pizzaTypeList", pizzaTypeRepository.findAll());
             return "pizzas/newPizza";
         } else {
             Pizza savePizza = pizzeriaRepository.save(formPizza);
@@ -80,6 +86,7 @@ public class PizzaController {
                 return "pizzas/editPizza";
             }
             formPizza.setPhoto(pizzaedit.getPhoto());
+            formPizza.setSpecialOfferts(pizzaedit.getSpecialOfferts());
             Pizza savedpizza = pizzeriaRepository.save(formPizza);
             return "redirect:/pizzas";
         } else {
