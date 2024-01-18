@@ -78,6 +78,7 @@ public class PizzaController {
         Optional<Pizza> result = pizzeriaRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("pizza", result.get());
+            model.addAttribute("ingredientList", ingredientsRepository.findAll());
             return "pizzas/editPizza";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
